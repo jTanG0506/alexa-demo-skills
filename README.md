@@ -12,5 +12,28 @@ In each of the skills in the Skills folder, there are two main components; the `
 **Marcus Tressl** - Simple fact based skill that returns facts based on MATH20111 Real Analysis content.
 ```
 You: Alexa, ask Marcus Tressl to give me some real analysis.
+
 Alexa: Every non empty subset S of the reals which has an upper bound, has a least upper bound.
+```
+
+**TWD Quiz** - Trivia game with questions based on The Walking Dead TV series.
+```
+You: Alexa, open the walking dead game.
+
+Alexa: Welcome to the walking dead quiz. I will ask you 5 questions, try to get as many right as you can.
+       Just say the number of the answer. Let's begin.
+       Question 1. Which one of these Sanctuary residents is not one of Negan’s wives?
+       1. Frankie. 2. Sherry. 3. Laura.
+
+You: Is it three?
+
+Alexa: That answer is correct. Your score is 1.
+       Question 2. Who fired the first shot at The Sanctuary in the Season 8 Premiere?
+       1. Negan. 2. Rick. 3. Michonne.
+
+You: One.
+
+Alexa: That answer is wrong. The correct answer is 2: Rick. Your score is 1.
+       Question 3. Andre was the son of which character?
+       1. Michonne. 2. Abraham. 3. Morgan.
 ```
