@@ -12,6 +12,13 @@
           ]
         },
         {
+          "name": "AlexaMeetupNumbers",
+          "samples": [
+            "how many cities have alexa meetups",
+            "how many alexa meetups are there"
+          ]
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
