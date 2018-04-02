@@ -8,6 +8,9 @@ In each of the skills in the Skills folder, there are two main components; the `
 * ``src`` contains the source code for the [AWS Lambda function](https://aws.amazon.com/lambda/) for this skill
 * ``schema.json`` is the [Interaction Model Schema](https://developer.amazon.com/docs/smapi/interaction-model-schema.html) for this skill
 
+## :seedling: Boilerplate Code
+To get started easily, you can find boilerplate code (in [Node.js](http://nodejs.org)) for a Alexa Skill in the [boilerplate-code](boilerplate-code) sub-folder. The boilerplate code contains the bare minimum for an Alexa Skill with the same structure as described in Instructions.
+
 ## :book: Skills
 **Marcus Tressl** - Simple fact based skill that returns facts based on MATH20111 Real Analysis content.
 ```
