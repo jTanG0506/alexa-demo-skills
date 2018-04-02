@@ -19,6 +19,29 @@
           ]
         },
         {
+          "name": "AlexaMeetupCityCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "if {USCity} has an alexa meetup",
+            "if {EuropeanCity} has an alexa meetup",
+            "does {USCity} have an alexa meetup",
+            "does {EuropeanCity} have an alexa meetup",
+            "check {USCity}",
+            "check {EuropeanCity}",
+            "is there any alexa meetups in {USCity}",
+            "is there any alexa meetups in {EuropeanCity}"
+          ]
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
