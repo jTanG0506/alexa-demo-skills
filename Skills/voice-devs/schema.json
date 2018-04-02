@@ -1,8 +1,16 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "Invocation Name",
+      "invocationName": "voice devs",
       "intents": [
+        {
+          "name": "HelloIntent",
+          "samples": [
+            "hello",
+            "hi",
+            "hey"
+          ]
+        },
         {
           "name": "AMAZON.CancelIntent",
           "samples": []
