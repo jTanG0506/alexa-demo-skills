@@ -37,3 +37,16 @@ Alexa: That answer is wrong. The correct answer is 2: Rick. Your score is 1.
        Question 3. Andre was the son of which character?
        1. Michonne. 2. Abraham. 3. Morgan.
 ```
+
+**Minecraft Helper** - Tells you the recipe for most items in Minecraft.
+```
+You: Alexa, open Minecraft helper.
+
+Alexa: Welcome to the How To Helper. You can ask a question like, what's the recipe for a chest?
+       Now, what can I help you with.
+       
+You: How do I make a furnace?
+
+Alexa: A furnace can be crafted by placing cobblestone in every square but the middle square in a
+       crafting table.
+```
