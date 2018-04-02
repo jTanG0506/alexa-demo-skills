@@ -10,7 +10,10 @@ exports.handler = function(event, context, callback){
 
 // Define handler functions below.
 var handlers = {
-  'LaunchRequest': function () {
-    this.emit(':ask', 'Welcome to my template code!', 'Try saying hello!');
+  'LaunchRequest': function() {
+    this.emit(':ask', 'Welcome to voice devs!', 'Try saying hello!');
+  },
+  'HelloIntent': function() {
+    this.emit(':tell', 'Hi there!');
   }
 };
