@@ -141,5 +141,20 @@ var handlers = {
     } else {
       this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
     }
+  },
+
+  'AMAZON.StopIntent': function() {
+    // State automatically saved with :tell tag
+    this.emit(':tell', 'Goodbye!');
+  },
+
+  'AMAZON.CancelIntent': function() {
+    // State automatically saved with :tell tag
+    this.emit(':tell', 'Goodbye!');
+  },
+
+  'SessionEndedRequest': function() {
+    // Force the state to save when user times out
+    this.emit(':saveState', true);
   }
 };
