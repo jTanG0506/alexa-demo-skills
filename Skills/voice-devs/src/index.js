@@ -3,6 +3,9 @@ var Alexa = require('alexa-sdk');
 // Include data file
 var alexaMeetups = require('./data/alexaMeetups');
 
+// Helpers
+var convertArrayToReadableString = require('./helpers/convertArrayToReadableString');
+
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
   alexa.registerHandlers(handlers);
@@ -82,7 +85,7 @@ var handlers = {
       if (cityOrganisers.length === 1) {
         this.emit(':ask', `The organiser of the ${city} Alexa developer meetup is ${cityOrganisers[0]}`, 'How can I help?');
       } else {
-        this.emit(':ask', `The organisers of the ${city} Alexa developer meetup are ${cityOrganisers.toString()}`, 'How can I help?');
+        this.emit(':ask', `The organisers of the ${city} Alexa developer meetup are ${convertArrayToReadableString(cityOrganisers)}`, 'How can I help?');
       }
     } else {
       this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
