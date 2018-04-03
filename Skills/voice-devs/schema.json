@@ -36,9 +36,28 @@
             "does {USCity} have an alexa meetup",
             "does {EuropeanCity} have an alexa meetup",
             "check {USCity}",
-            "check {EuropeanCity}",
-            "is there any alexa meetups in {USCity}",
-            "is there any alexa meetups in {EuropeanCity}"
+            "check {EuropeanCity}"
+          ]
+        },
+        {
+          "name": "AlexaMeetupOrganiserCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "whos the organiser of the {USCity} alexa meetup",
+            "whos the organiser of the {EuropeanCity} alexa meetup",
+            "who is the organiser of the {USCity} alexa meetup",
+            "who is the organiser of the {EuropeanCity} alexa meetup",
+            "tell me the organiser of the {USCity} alexa meetup",
+            "tell me the organiser of the {EuropeanCity} alexa meetup"
           ]
         },
         {
