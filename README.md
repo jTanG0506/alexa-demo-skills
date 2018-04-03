@@ -53,3 +53,9 @@ You: How do I make a furnace?
 Alexa: A furnace can be crafted by placing cobblestone in every square but the middle square in a
        crafting table.
 ```
+
+## :koala: Useful stuff
+Alexa's ``<audio>`` SSML tag supports mp3 files that are at most 90 seconds, have bitrate 48kps and frequency 16000Hz.
+```
+ffmpeg -y -i input.mp3 -ar 16000 -ab 48k -codec:a libmp3lame -ac 1 output.mp3
+```
