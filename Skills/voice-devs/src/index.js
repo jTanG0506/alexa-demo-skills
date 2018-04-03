@@ -50,5 +50,42 @@ var handlers = {
     } else {
       this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
     }
+  },
+  'AlexaMeetupOrganiserCheck': function() {
+    // Obtain slot values
+    var USCitySlot = this.event.request.intent.slots.USCity.value;
+    var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
+
+    // Check which city we actually have
+    var city;
+    if (USCitySlot) {
+      city = USCitySlot;
+    } else if (EuropeanCitySlot) {
+      city = EuropeanCitySlot;
+    } else {
+      this.emit(':ask', 'Sorry, I didn\'t recognise that city name.', 'How can I help?');
+    }
+
+    // Check whether city has a meetup
+    var cityMatch = '';
+    var cityOrganisers;
+    for (var i = 0; i < alexaMeetups.length; i++) {
+      if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
+        cityMatch = alexaMeetups[i].city;
+        cityOrganisers = alexaMeetups[i].organisers;
+      }
+    }
+
+    // Respond to user
+    if (cityMatch !== '') {
+      // Single organiser
+      if (cityOrganisers.length === 1) {
+        this.emit(':ask', `The organiser of the ${city} Alexa developer meetup is ${cityOrganisers[0]}`, 'How can I help?');
+      } else {
+        this.emit(':ask', `The organisers of the ${city} Alexa developer meetup are ${cityOrganisers.toString()}`, 'How can I help?');
+      }
+    } else {
+      this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+    }
   }
 };
