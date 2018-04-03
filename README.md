@@ -59,3 +59,8 @@ Alexa's ``<audio>`` SSML tag supports mp3 files that are at most 90 seconds, hav
 ```
 ffmpeg -y -i input.mp3 -ar 16000 -ab 48k -codec:a libmp3lame -ac 1 output.mp3
 ```
+
+To get the ``alexa-sdk`` as a node package, use the following command from your Node.js environment:
+```
+npm install --save alexa-sdk
+```
