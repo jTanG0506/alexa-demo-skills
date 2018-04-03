@@ -8,6 +8,7 @@ var convertArrayToReadableString = require('./helpers/convertArrayToReadableStri
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
+  alexa.dynamoDBTableName = 'VoiceDevsUsers';
   alexa.registerHandlers(handlers);
   alexa.execute();
 };
@@ -16,7 +17,14 @@ exports.handler = function(event, context, callback){
 var handlers = {
 
   'NewSession': function() {
-    this.emit(':ask', 'Welcome to Voice Devs, the skill that gives you information about the alexa developer community. You can ask me about the various alexa meetups around the world, or listen to the Alexa Dev Chat podcast. But first, I\'d like to get to know you better. Tell me your name by saying: My name is, and then your name.', 'Tell me your name by saying: My name is, and then your name.');
+    // Check for user data in session attributes
+    var userName = this.attributes['userName'];
+    if (userName) {
+      // Welcome user by name.
+      this.emit(':ask', `Welcome back ${userName}! You can ask me about the various alexa meetups around the world or listen to the Alexa Dev Chat podcast.`, 'What would you like to do?');
+    } else {
+      this.emit(':ask', 'Welcome to Voice Devs, the skill that gives you information about the alexa developer community. You can ask me about the various alexa meetups around the world, or listen to the Alexa Dev Chat podcast. But first, I\'d like to get to know you better. Tell me your name by saying: My name is, and then your name.', 'Tell me your name by saying: My name is, and then your name.');
+    }
   },
 
   'NameCapture': function() {
@@ -48,7 +56,7 @@ var handlers = {
     // Get user name from session attributes
     var userName = this.attributes['userName'];
 
-    // Save country name to session attributes then ask for favourite language
+    // Save country name to session attributes
     if (country) {
       this.attributes['userCountry'] = country;
       this.emit(':ask', `Ok, ${userName}! You're from ${country}, that's great! You can ask me about the various alexa meetups around the world, or listen to the Alexa Dev postcast. What would you like to do?`, 'What would you like to do?');
