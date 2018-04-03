@@ -4,11 +4,20 @@
       "invocationName": "voice devs",
       "intents": [
         {
-          "name": "HelloIntent",
+          "name": "NameCapture",
+          "slots": [
+            {
+              "name": "USFirstName",
+              "type": "AMAZON.US_FIRST_NAME"
+            },
+            {
+              "name": "UKFirstName",
+              "type": "AMAZON.GB_FIRST_NAME"
+            }
+          ],
           "samples": [
-            "hello",
-            "hi",
-            "hey"
+            "my name is {USFirstName}",
+            "my name is {UKFirstName}"
           ]
         },
         {
