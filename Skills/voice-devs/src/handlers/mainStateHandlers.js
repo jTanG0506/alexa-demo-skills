@@ -9,6 +9,8 @@ var alexaMeetups = require('../data/alexaMeetups');
 
 // Helpers
 var convertArrayToReadableString = require('../helpers/convertArrayToReadableString');
+var checkMeetupCity = require('../helpers/checkMeetupCity');
+var getLondonAudio = require('../helpers/getLondonAudio');
 
 var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
 
@@ -34,35 +36,14 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
     var USCitySlot = this.event.request.intent.slots.USCity.value;
     var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
 
-    // Check which city we actually have
-    var city;
-    if (USCitySlot) {
-      city = USCitySlot;
-    } else if (EuropeanCitySlot) {
-      city = EuropeanCitySlot;
-    } else {
-      this.emit(':ask', 'Sorry, I didn\'t recognise that city name.', 'How can I help?');
-    }
-
-    // Check whether city has a meetup
-    var cityMatch = '';
-    for (var i = 0; i < alexaMeetups.length; i++) {
-      if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
-        cityMatch = alexaMeetups[i].city;
-      }
-    }
-
-    // Add London audio
-    var londonAudio = ``;
-    if (city.toLowerCase() === `london`) {
-      londonAudio = `<audio src="https://s3-eu-west-1.amazonaws.com/jtang-voice-devs/london-baby.mp3"/>`
-    }
+    // Check city match
+    var cityMatch = checkMeetupCity(USCitySlot, EuropeanCitySlot);
 
     // Respond to user
-    if (cityMatch !== '') {
-      this.emit(':ask', `${londonAudio} Yes! ${city} has an Alexa meetup!`, 'How can I help?');
+    if (cityMatch) {
+      this.emit(':ask', `${getLondonAudio(cityMatch.city)} Yes! ${cityMatch.city} has an Alexa meetup!`, 'How can I help?');
     } else {
-      this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+      this.emit(':ask', `Sorry, looks like ${(USCitySlot || EuropeanCitySlot)} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
     }
   },
 
@@ -71,45 +52,22 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
     var USCitySlot = this.event.request.intent.slots.USCity.value;
     var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
 
-    // Check which city we actually have
-    var city;
-    if (USCitySlot) {
-      city = USCitySlot;
-    } else if (EuropeanCitySlot) {
-      city = EuropeanCitySlot;
-    } else {
-      this.emit(':ask', 'Sorry, I didn\'t recognise that city name.', 'How can I help?');
-    }
-
-    // Check whether city has a meetup
-    var cityMatch = '';
-    var cityMeetupURL = '';
-    for (var i = 0; i < alexaMeetups.length; i++) {
-      if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
-        cityMatch = alexaMeetups[i].city;
-        cityMeetupURL = alexaMeetups[i].meetupURL;
-      }
-    }
-
-    // Add London audio
-    var londonAudio = ``;
-    if (city.toLowerCase() === `london`) {
-      londonAudio = `<audio src="https://s3-eu-west-1.amazonaws.com/jtang-voice-devs/london-baby.mp3"/>`
-    }
+    // Check city match
+    var cityMatch = checkMeetupCity(USCitySlot, EuropeanCitySlot);
 
     // Respond to user
-    if (cityMatch !== '') {
+    if (cityMatch) {
       // Get access token from Alexa request and check if account is linked
       var accessToken = this.event.session.user.accessToken;
       if (accessToken) {
         // Get meetup group details from API
-        meetupAPI.GetMeetupGroupDetails(accessToken, cityMeetupURL)
+        meetupAPI.GetMeetupGroupDetails(accessToken, cityMatch.meetupURL)
         .then((meetupDetails) => {
           // Get organiser name
           var organiserName = meetupDetails.organizer.name;
 
           var cardTitle = `${organiserName}`;
-          var cardContent = `The organiser of the ${cityMatch} Alexa developer meetup is ${organiserName}`;
+          var cardContent = `The organiser of the ${cityMatch.city} Alexa developer meetup is ${organiserName}`;
 
           var imageObj = {
             smallImageUrl: `${meetupDetails.organizer.photo.photo_link}`,
@@ -117,7 +75,7 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
           };
 
           // Respond to user
-          this.emit(':askWithCard', `${londonAudio} The organiser of the ${city} Alexa developer meetup is ${organiserName}`, 'How can I help?', cardTitle, cardContent, imageObj);
+          this.emit(':askWithCard', `${getLondonAudio(cityMatch.city)} The organiser of the ${cityMatch.city} Alexa developer meetup is ${organiserName}`, 'How can I help?', cardTitle, cardContent, imageObj);
         })
         .catch((error) => {
           // API error.
@@ -128,7 +86,7 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
         this.emit(':tellWithLinkAccountCard', 'Please link your account to use this skill. I\'ve sent the details to your Alexa app');
       }
     } else {
-      this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+      this.emit(':ask', `Sorry, looks like ${(USCitySlot || EuropeanCitySlot)} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
     }
   },
 
@@ -137,45 +95,22 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
     var USCitySlot = this.event.request.intent.slots.USCity.value;
     var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
 
-    // Check which city we actually have
-    var city;
-    if (USCitySlot) {
-      city = USCitySlot;
-    } else if (EuropeanCitySlot) {
-      city = EuropeanCitySlot;
-    } else {
-      this.emit(':ask', 'Sorry, I didn\'t recognise that city name.', 'How can I help?');
-    }
-
-    // Check whether city has a meetup
-    var cityMatch = '';
-    var cityMeetupURL = '';
-    for (var i = 0; i < alexaMeetups.length; i++) {
-      if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
-        cityMatch = alexaMeetups[i].city;
-        cityMeetupURL = alexaMeetups[i].meetupURL;
-      }
-    }
-
-    // Add London audio
-    var londonAudio = ``;
-    if (city.toLowerCase() === `london`) {
-      londonAudio = `<audio src="https://s3-eu-west-1.amazonaws.com/jtang-voice-devs/london-baby.mp3"/>`
-    }
+    // Check city match
+    var cityMatch = checkMeetupCity(USCitySlot, EuropeanCitySlot);
 
     // Respond to user
-    if (cityMatch !== '') {
+    if (cityMatch) {
       // Get access token from Alexa request and check if account is linked
       var accessToken = this.event.session.user.accessToken;
       if (accessToken) {
         // Get meetup group details from API
-        meetupAPI.GetMeetupGroupDetails(accessToken, cityMeetupURL)
+        meetupAPI.GetMeetupGroupDetails(accessToken, cityMatch.meetupURL)
         .then((meetupDetails) => {
           // Get number of members in group
           var meetupMembers = meetupDetails.members;
 
           // Respond to user
-          this.emit(':ask', `${londonAudio} The ${city} Alexa developer meetup has ${meetupMembers} members - Nice! How else can I help you?`, 'How can I help?');
+          this.emit(':ask', `${getLondonAudio(cityMatch.city)} The ${cityMatch.city} Alexa developer meetup has ${meetupMembers} members - Nice! How else can I help you?`, 'How can I help?');
         })
         .catch((error) => {
           // API error.
@@ -186,7 +121,7 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
         this.emit(':tellWithLinkAccountCard', 'Please link your account to use this skill. I\'ve sent the details to your Alexa app');
       }
     } else {
-      this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+      this.emit(':ask', `Sorry, looks like ${(USCitySlot || EuropeanCitySlot)} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
     }
   },
 
