@@ -32,7 +32,7 @@ module.exports = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'X-Meta-Photo-host': 'secure'
+          'X-Meta-Photo-Host': 'secure'
         }
       }).then((response) => {
         // Return meetup group details

@@ -53,6 +53,27 @@
           ]
         },
         {
+          "name": "AlexaMeetupMembersCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "how many members does the {USCity} alexa meetup have",
+            "how many members does the {EuropeanCity} alexa meetup have",
+            "how many people does the {USCity} alexa meetup have",
+            "how many people does the {EuropeanCity} alexa meetup have",
+            "how big is the {USCity} alexa meetup",
+            "how big is the {EuropeanCity} alexa meetup"
+          ]
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
