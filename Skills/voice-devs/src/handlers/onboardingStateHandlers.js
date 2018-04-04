@@ -16,48 +16,6 @@ var onboardingStateHandlers = Alexa.CreateStateHandler(constants.states.ONBOARDI
     }
   },
 
-  'NameCapture': function() {
-    // Obtain slot values
-    var USFirstNameSlot = this.event.request.intent.slots.USFirstName.value;
-    var UKFirstNameSlot = this.event.request.intent.slots.UKFirstName.value;
-
-    // Get the users name
-    var name;
-    if (USFirstNameSlot) {
-      name = USFirstNameSlot;
-    } else if (UKFirstNameSlot) {
-      name = UKFirstNameSlot;
-    }
-
-    // Save name in session attributes
-    if (name) {
-      this.attributes['userName'] = name;
-      this.emit(':ask', `Ok, ${name}! Tell me what country you're from by saying: I am from, and then the country you\'re from.`, 'Tell me what country you\'re from by saying: I am from, and then the country you\'re from.');
-    } else {
-      this.emit(':ask', 'Sorry, I didn\'t recognise that name. Please tell me your name by saying: My name is, and then your name.', 'Please tell me your name by saying: My name is, and then your name.');
-    }
-  },
-
-  'CountryCapture': function() {
-    // Obtain slot values
-    var country = this.event.request.intent.slots.Country.value;
-
-    // Get user name from session attributes
-    var userName = this.attributes['userName'];
-
-    // Save country name to session attributes
-    if (country) {
-      this.attributes['userCountry'] = country;
-
-      // Change state to MAIN
-      this.handler.state = constants.states.MAIN;
-
-      this.emit(':ask', `Ok, ${userName}! You're from ${country}, that's great! You can ask me about the various alexa meetups around the world, or listen to the Alexa Dev postcast. What would you like to do?`, 'What would you like to do?');
-    } else {
-      this.emit(':ask', 'Sorry, I didn\'t recognise that country. Please tell me what country you\'re from by saying: I am from, and then the country you\'re from.', 'Please tell me what country you\'re from by saying: I am from, and then the country you\'re from.');
-    }
-  },
-
   'AMAZON.StopIntent': function() {
     // State automatically saved with :tell tag
     this.emit(':tell', 'Goodbye!');

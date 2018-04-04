@@ -4,36 +4,6 @@
       "invocationName": "voice devs",
       "intents": [
         {
-          "name": "NameCapture",
-          "slots": [
-            {
-              "name": "USFirstName",
-              "type": "AMAZON.US_FIRST_NAME"
-            },
-            {
-              "name": "UKFirstName",
-              "type": "AMAZON.GB_FIRST_NAME"
-            }
-          ],
-          "samples": [
-            "my name is {USFirstName}",
-            "my name is {UKFirstName}"
-          ]
-        },
-        {
-          "name": "CountryCapture",
-          "slots": [
-            {
-              "name": "Country",
-              "type": "LIST_OF_COUNTRIES"
-            }
-          ],
-          "samples": [
-            "i am from {Country}",
-            "im from {Country}"
-          ]
-        },
-        {
           "name": "AlexaMeetupNumbers",
           "samples": [
             "how many cities have alexa meetups",
