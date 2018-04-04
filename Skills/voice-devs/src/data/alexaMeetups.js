@@ -1,116 +1,55 @@
 var alexaMeetups = [
   {
     "city": "Appleton",
-    "country": "US",
-    "organisers": [
-      "Peter Bailen"
-    ]
+    "meetupURL": "Appleton-Amazon-Alexa-Meetup",
   },
   {
     "city": "Berlin",
-    "country": "Germany",
-    "organisers": [
-      "Tilmann Böhme",
-      "Stefan Ostwald"
-    ]
+    "meetupURL": "Berlin-Voice-Interfaces",
   },
   {
     "city": "Boston",
-    "country": "US",
-    "organisers": [
-      "Joel Evans",
-      "Evan Dorfman"
-    ]
-  },
-  {
-    "city": "Columbus",
-    "country": "US",
-    "organisers": [
-      "Bryant Schuck",
-      "Stuart Crane"
-    ]
+    "meetupURL": "Boston-Alexa-Developers",
   },
   {
     "city": "Dublin",
-    "country": "Ireland",
-    "organisers": [
-      "Ronan OC",
-      "Jason O'Con­aill"
-    ]
+    "meetupURL": "alexadevs",
   },
   {
     "city": "Grand Rapids",
-    "country": "US",
-    "organisers": [
-      "Aaron Kozminski"
-    ]
+    "meetupURL": "Grand-Rapids-Alexa-Meetup",
   },
   {
     "city": "Indianapolis",
-    "country": "US",
-    "organisers": [
-      "Dan T"
-    ]
+    "meetupURL": "Indianapolis-Amazon-Alexa",
   },
   {
     "city": "London",
-    "country": "UK",
-    "organisers": [
-      "Oscar Merry"
-    ]
+    "meetupURL": "London-Alexa-Devs",
+  },
+  {
+    "city": "Los Angeles",
+    "meetupURL": "Los-Angeles-Amazon-Echo-Developer-Meetup",
   },
   {
     "city": "New York",
-    "country": "US",
-    "organisers": [
-      "Brian Donohue",
-      "Ruthie Nachmany"
-    ]
+    "meetupURL": "NYC-Amazon-Alexa-Meetup",
   },
   {
     "city": "Paris",
-    "country": "France",
-    "organisers": [
-      "Hicham Tahiri"
-    ]
+    "meetupURL": "Voice-Interfaces-Paris",
   },
   {
     "city": "Philadelphia",
-    "country": "US",
-    "organisers": [
-      "Chris Myers",
-      "Phil Ives"
-    ]
+    "meetupURL": "Philadelphia-Amazon-Alexa-Meetup",
   },
   {
     "city": "Pittsburgh",
-    "country": "US",
-    "organisers": [
-      "Chris Maury",
-      "Ermine Teves"
-    ]
-  },
-  {
-    "city": "Reston",
-    "country": "US",
-    "organisers": [
-      "Ed Water"
-    ]
-  },
-  {
-    "city": "San Diego",
-    "country": "US",
-    "organisers": [
-      "Samuel Dieck"
-    ]
+    "meetupURL": "Pittsburgh-Amazon-Alexa-Meetup",
   },
   {
     "city": "San Francisco",
-    "country": "US",
-    "organisers": [
-      "Quentin Delaoutre",
-      "Maximilien Andile"
-    ]
+    "meetupURL": "SF-Amazon-Alexa",
   }
 ];
 
