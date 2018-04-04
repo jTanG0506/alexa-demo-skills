@@ -2,7 +2,9 @@ var Alexa = require('alexa-sdk');
 
 var constants = require('../constants/constants');
 
-// Include data file
+var meetupAPI = require('../helpers/meetupAPI');
+
+// Data
 var alexaMeetups = require('../data/alexaMeetups');
 
 // Helpers
@@ -81,11 +83,11 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
 
     // Check whether city has a meetup
     var cityMatch = '';
-    var cityOrganisers;
+    var cityMeetupURL = '';
     for (var i = 0; i < alexaMeetups.length; i++) {
       if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
         cityMatch = alexaMeetups[i].city;
-        cityOrganisers = alexaMeetups[i].organisers;
+        cityMeetupURL = alexaMeetups[i].meetupURL;
       }
     }
 
@@ -97,11 +99,25 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
 
     // Respond to user
     if (cityMatch !== '') {
-      // Single organiser
-      if (cityOrganisers.length === 1) {
-        this.emit(':ask', `${londonAudio} The organiser of the ${city} Alexa developer meetup is ${cityOrganisers[0]}`, 'How can I help?');
+      // Get access token from Alexa request and check if account is linked
+      var accessToken = this.event.session.user.accessToken;
+      if (accessToken) {
+        // Get meetup group details from API
+        meetupAPI.GetMeetupGroupDetails(accessToken, cityMeetupURL)
+        .then((meetupDetails) => {
+          // Get organiser name
+          var organiserName = meetupDetails.organizer.name;
+
+          // Reponse to user
+          this.emit(':ask', `${londonAudio} The organiser of the ${city} Alexa developer meetup is ${organiserName}`, 'How can I help?');
+        })
+        .catch((error) => {
+          // API error.
+          console.log("MeetupAPI Error: ", error);
+          this.emit(':tell', 'Sorry, there was a problem accessing your meetup account details.');
+        });
       } else {
-        this.emit(':ask', `${londonAudio} The organisers of the ${city} Alexa developer meetup are ${convertArrayToReadableString(cityOrganisers)}`, 'How can I help?');
+        this.emit(':tellWithLinkAccountCard', 'Please link your account to use this skill. I\'ve sent the details to your Alexa app');
       }
     } else {
       this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
