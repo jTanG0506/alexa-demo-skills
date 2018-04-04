@@ -108,8 +108,16 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
           // Get organiser name
           var organiserName = meetupDetails.organizer.name;
 
-          // Reponse to user
-          this.emit(':ask', `${londonAudio} The organiser of the ${city} Alexa developer meetup is ${organiserName}`, 'How can I help?');
+          var cardTitle = `${organiserName}`;
+          var cardContent = `The organiser of the ${cityMatch} Alexa developer meetup is ${organiserName}`;
+
+          var imageObj = {
+            smallImageUrl: `${meetupDetails.organizer.photo.photo_link}`,
+            largeImageUrl: `${meetupDetails.organizer.photo.photo_link}`
+          };
+
+          // Respond to user
+          this.emit(':askWithCard', `${londonAudio} The organiser of the ${city} Alexa developer meetup is ${organiserName}`, 'How can I help?', cardTitle, cardContent, imageObj);
         })
         .catch((error) => {
           // API error.
