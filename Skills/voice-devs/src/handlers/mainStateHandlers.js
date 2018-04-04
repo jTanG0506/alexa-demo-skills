@@ -132,6 +132,64 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
     }
   },
 
+  'AlexaMeetupMembersCheck': function() {
+    // Obtain slot values
+    var USCitySlot = this.event.request.intent.slots.USCity.value;
+    var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
+
+    // Check which city we actually have
+    var city;
+    if (USCitySlot) {
+      city = USCitySlot;
+    } else if (EuropeanCitySlot) {
+      city = EuropeanCitySlot;
+    } else {
+      this.emit(':ask', 'Sorry, I didn\'t recognise that city name.', 'How can I help?');
+    }
+
+    // Check whether city has a meetup
+    var cityMatch = '';
+    var cityMeetupURL = '';
+    for (var i = 0; i < alexaMeetups.length; i++) {
+      if (city.toLowerCase() === alexaMeetups[i].city.toLowerCase()) {
+        cityMatch = alexaMeetups[i].city;
+        cityMeetupURL = alexaMeetups[i].meetupURL;
+      }
+    }
+
+    // Add London audio
+    var londonAudio = ``;
+    if (city.toLowerCase() === `london`) {
+      londonAudio = `<audio src="https://s3-eu-west-1.amazonaws.com/jtang-voice-devs/london-baby.mp3"/>`
+    }
+
+    // Respond to user
+    if (cityMatch !== '') {
+      // Get access token from Alexa request and check if account is linked
+      var accessToken = this.event.session.user.accessToken;
+      if (accessToken) {
+        // Get meetup group details from API
+        meetupAPI.GetMeetupGroupDetails(accessToken, cityMeetupURL)
+        .then((meetupDetails) => {
+          // Get number of members in group
+          var meetupMembers = meetupDetails.members;
+
+          // Respond to user
+          this.emit(':ask', `${londonAudio} The ${city} Alexa developer meetup has ${meetupMembers} members - Nice! How else can I help you?`, 'How can I help?');
+        })
+        .catch((error) => {
+          // API error.
+          console.log("MeetupAPI Error: ", error);
+          this.emit(':tell', 'Sorry, there was a problem accessing your meetup account details.');
+        });
+      } else {
+        this.emit(':tellWithLinkAccountCard', 'Please link your account to use this skill. I\'ve sent the details to your Alexa app');
+      }
+    } else {
+      this.emit(':ask', `Sorry, looks like ${city} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+    }
+  },
+
   'AMAZON.StopIntent': function() {
     // State automatically saved with :tell tag
     this.emit(':tell', 'Goodbye!');
