@@ -1,0 +1,153 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "voice devs",
+      "intents": [
+        {
+          "name": "AlexaMeetupNumbers",
+          "samples": [
+            "how many cities have alexa meetups",
+            "how many alexa meetups are there"
+          ]
+        },
+        {
+          "name": "AlexaMeetupCityCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "if {USCity} has an alexa meetup",
+            "if {EuropeanCity} has an alexa meetup",
+            "does {USCity} have an alexa meetup",
+            "does {EuropeanCity} have an alexa meetup",
+            "check {USCity}",
+            "check {EuropeanCity}"
+          ]
+        },
+        {
+          "name": "AlexaMeetupOrganiserCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "whos the organiser of the {USCity} alexa meetup",
+            "whos the organiser of the {EuropeanCity} alexa meetup",
+            "who is the organiser of the {USCity} alexa meetup",
+            "who is the organiser of the {EuropeanCity} alexa meetup",
+            "tell me the organiser of the {USCity} alexa meetup",
+            "tell me the organiser of the {EuropeanCity} alexa meetup"
+          ]
+        },
+        {
+          "name": "AlexaMeetupMembersCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "how many members does the {USCity} alexa meetup have",
+            "how many members does the {EuropeanCity} alexa meetup have",
+            "how many people does the {USCity} alexa meetup have",
+            "how many people does the {EuropeanCity} alexa meetup have",
+            "how big is the {USCity} alexa meetup",
+            "how big is the {EuropeanCity} alexa meetup"
+          ]
+        },
+        {
+          "name": "AlexaNextMeetupCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "when is the next {USCity} alexa meetup",
+            "when is the next {EuropeanCity} alexa meetup",
+            "whens the next {USCity} alexa meetup",
+            "whens the next {EuropeanCity} alexa meetup"
+          ]
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "PlayPodcast",
+          "slots": [
+            {
+              "name": "Episode",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "play the alexa dev chat podcast",
+            "play the alexa podcast",
+            "play postcast",
+            "play episode {Episode} of the alexa dev chat podcast",
+            "play episode {Episode} of the alexa podcast",
+            "play episode {Episode} of the podcast",
+            "play episode {Episode}"
+          ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
+        }
+      ],
+      "types": []
+    }
+  }
+}
