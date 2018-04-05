@@ -27,6 +27,12 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
     }
   },
 
+  'PlayPodcast': function() {
+    // Change the state to Audio Player
+    this.handler.state = constants.states.AUDIO_PLAYER;
+    this.emitWithState('PlayPodcast');
+  },
+
   'AlexaMeetupNumbers': function() {
     var meetupNumbers = alexaMeetups.length;
     this.emit(':ask', `I currently know of ${meetupNumbers} Alexa developer meetups. Check to see if your city is one of them!`, 'How can I help?');

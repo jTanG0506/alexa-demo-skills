@@ -109,7 +109,7 @@
           "slots": [
             {
               "name": "Episode",
-              "type": "AMAZON.Number"
+              "type": "AMAZON.NUMBER"
             }
           ],
           "samples": [
