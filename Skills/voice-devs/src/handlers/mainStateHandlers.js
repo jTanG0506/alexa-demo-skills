@@ -2,15 +2,16 @@ var Alexa = require('alexa-sdk');
 
 var constants = require('../constants/constants');
 
-var meetupAPI = require('../helpers/meetupAPI');
-
 // Data
 var alexaMeetups = require('../data/alexaMeetups');
 
 // Helpers
 var convertArrayToReadableString = require('../helpers/convertArrayToReadableString');
+var meetupAPI = require('../helpers/meetupAPI');
 var checkMeetupCity = require('../helpers/checkMeetupCity');
 var getLondonAudio = require('../helpers/getLondonAudio');
+var alexaDateUtil = require('../helpers/alexaDateUtil');
+
 
 var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
 
@@ -111,6 +112,46 @@ var mainStateHandlers = Alexa.CreateStateHandler(constants.states.MAIN, {
 
           // Respond to user
           this.emit(':ask', `${getLondonAudio(cityMatch.city)} The ${cityMatch.city} Alexa developer meetup has ${meetupMembers} members - Nice! How else can I help you?`, 'How can I help?');
+        })
+        .catch((error) => {
+          // API error.
+          console.log("MeetupAPI Error: ", error);
+          this.emit(':tell', 'Sorry, there was a problem accessing your meetup account details.');
+        });
+      } else {
+        this.emit(':tellWithLinkAccountCard', 'Please link your account to use this skill. I\'ve sent the details to your Alexa app');
+      }
+    } else {
+      this.emit(':ask', `Sorry, looks like ${(USCitySlot || EuropeanCitySlot)} doesn't have an Alexa developer meetup yet - why don't you start one?`, 'How can I help?');
+    }
+  },
+
+  'AlexaNextMeetupCheck': function() {
+    // Obtain slot values
+    var USCitySlot = this.event.request.intent.slots.USCity.value;
+    var EuropeanCitySlot = this.event.request.intent.slots.EuropeanCity.value;
+
+    // Check city match
+    var cityMatch = checkMeetupCity(USCitySlot, EuropeanCitySlot);
+
+    // Respond to user
+    if (cityMatch) {
+      // Get access token from Alexa request and check if account is linked
+      var accessToken = this.event.session.user.accessToken;
+      if (accessToken) {
+        // Get meetup group details from API
+        meetupAPI.GetMeetupGroupDetails(accessToken, cityMatch.meetupURL)
+        .then((meetupDetails) => {
+          // Get the date of next meetup
+          var nextEvent = meetupDetails.next_event;
+
+          if (nextEvent) {
+            var nextEventDate = new Date(nextEvent.time);
+
+            this.emit(':ask', `${getLondonAudio(cityMatch.city)} The next ${cityMatch.city} Alexa developer meetup is on ${alexaDateUtil.getFormattedDate(nextEventDate)} at ${alexaDateUtil.getFormattedTime(nextEventDate)}! Currently ${nextEvent.yes_rsvp_count} members have RSVP'd. How else can I help you?`, 'How can I help?');
+          } else {
+            this.emit(':ask', `${getLondonAudio(cityMatch.city)} There's currently no upcoming meetups in ${cityMatch.city}. You should chase the organiser, ${meetupDetails.organizer.name} to schedule one! How else can I help you?`, 'How can I help?');
+          }
         })
         .catch((error) => {
           // API error.
