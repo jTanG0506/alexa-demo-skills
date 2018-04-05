@@ -103,6 +103,48 @@
         {
           "name": "AMAZON.StopIntent",
           "samples": []
+        },
+        {
+          "name": "PlayPodcast",
+          "slots": [
+            {
+              "name": "Episode",
+              "type": "AMAZON.Number"
+            }
+          ],
+          "samples": [
+            "play the alexa dev chat podcast",
+            "play the alexa podcast",
+            "play postcast",
+            "play episode {Episode} of the alexa dev chat podcast",
+            "play episode {Episode} of the alexa podcast",
+            "play episode {Episode} of the podcast",
+            "play episode {Episode}"
+          ]
+        },
+        {
+          "name": "AMAZON.PauseIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.ResumeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NextIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StartOverIntent",
+          "samples": []
         }
       ],
       "types": []
