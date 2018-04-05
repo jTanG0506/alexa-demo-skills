@@ -6,6 +6,7 @@ var constants = require('./constants/constants');
 // Handlers
 var onboardingStateHandlers = require('./handlers/onboardingStateHandlers');
 var mainStateHandlers = require('./handlers/mainStateHandlers');
+var audioPlayerHandlers = require('./handlers/audioPlayerHandlers');
 
 exports.handler = function(event, context, callback){
   var alexa = Alexa.handler(event, context);
@@ -13,7 +14,8 @@ exports.handler = function(event, context, callback){
   alexa.dynamoDBTableName = constants.dynamoDBTableName;
   alexa.registerHandlers(
     onboardingStateHandlers,
-    mainStateHandlers
+    mainStateHandlers,
+    audioPlayerHandlers
   );
   alexa.execute();
 };
