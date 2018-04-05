@@ -74,6 +74,25 @@
           ]
         },
         {
+          "name": "AlexaNextMeetupCheck",
+          "slots": [
+            {
+              "name": "USCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "EuropeanCity",
+              "type": "AMAZON.EUROPE_CITY"
+            }
+          ],
+          "samples": [
+            "when is the next {USCity} alexa meetup",
+            "when is the next {EuropeanCity} alexa meetup",
+            "whens the next {USCity} alexa meetup",
+            "whens the next {EuropeanCity} alexa meetup"
+          ]
+        },
+        {
           "name": "AMAZON.CancelIntent",
           "samples": []
         },
