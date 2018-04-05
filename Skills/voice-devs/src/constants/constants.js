@@ -3,7 +3,8 @@ var constants = Object.freeze({
   dynamoDBTableName: 'VoiceDevsUsers',
   states: {
     ONBOARDING: '',
-    MAIN: '_MAIN'
+    MAIN: '_MAIN',
+    AUDIO_PLAYER: '_AUDIO_PLAYER'
   }
 });
 
